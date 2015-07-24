@@ -30,5 +30,6 @@ namespace PortableRest
         /// 
         /// </summary>
         Xml,
+        PlainText
     }
 }

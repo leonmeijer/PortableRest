@@ -290,6 +290,8 @@ namespace PortableRest
                     return "application/x-www-form-urlencoded";
                 case ContentTypes.Xml:
                     return "application/xml";
+                case ContentTypes.PlainText:
+                    return "text/plain";
                 default:
                     return "application/json";
             }
@@ -301,8 +303,12 @@ namespace PortableRest
         /// <returns></returns>
         internal string GetRequestBody()
         {
+            var result = string.Empty;
             switch (ContentType)
             {
+                case ContentTypes.PlainText:                    
+                    if (Parameters.Count == 0) return result;
+                    else return (string)Parameters[0].GetEncodedValue();
                 case ContentTypes.FormUrlEncoded:
                     var parameters = Parameters.Aggregate(new StringBuilder(),
                         (current, next) =>
@@ -311,8 +317,7 @@ namespace PortableRest
                                 next.GetEncodedValue())));
                     return parameters.ToString();
 
-                case ContentTypes.Xml:
-                    var result = "";
+                case ContentTypes.Xml:                    
                     if (Parameters.Count == 0) return result;
 
                     var type = Parameters[0].Value.GetType();
@@ -335,7 +340,7 @@ namespace PortableRest
                     switch (Parameters.Count)
                     {
                         case 0:
-                            return "";
+                            return result;
                         case 1:
                             return JsonConvert.SerializeObject(Parameters[0].Value, JsonSerializerSettings);
                         default:
