@@ -7,7 +7,7 @@
         <authors>Robert McLaws, Richard Beauchamp</authors>
         <owners>AdvancedREI</owners>
         <licenseUrl>http://choosealicense.com/licenses/mit/</licenseUrl>
-        <projectUrl>http://github.com/AdvancedREI/PortableRest</projectUrl>
+        <projectUrl>https://github.com/leonmeijer/PortableRest</projectUrl>
         <iconUrl>https://advancedrei.blob.core.windows.net/nuget/PortableRest.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>A library for consuming REST APIs from Portable Class Libraries (.NET 4.5, Silverlight 5, Windows Phone 8.x, and Windows 8.x). Designed to be partially drop-in compatible with RestSharp.</description>
