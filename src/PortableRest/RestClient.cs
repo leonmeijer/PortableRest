@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using Newtonsoft.Json;
+using PortableRest.Authentication;
 
 namespace PortableRest
 {
@@ -46,6 +47,15 @@ namespace PortableRest
         /// </summary>
         /// <remarks>If you do not set this value, it will be set for you by calling SetUserAgent() before the request is executed.</remarks>
         public string UserAgent { get; set; }
+
+        /// <summary>
+        ///     The authenticator used for authenticating the request.
+        ///     <remarks>
+        ///         Can be null.
+        ///     </remarks>
+        /// </summary>
+        IAuthenticator Authenticator { get; set; }
+
 
         /// <summary>
         /// A shared <see cref="CookieContainer"/> that will be used for all requests.
@@ -238,6 +248,9 @@ namespace PortableRest
             {
                 clientHandler.CookieContainer = CookieContainer;
             }
+
+            
+
         }
 
         /// <summary>
@@ -302,6 +315,13 @@ namespace PortableRest
             {
                 restRequest.JsonSerializerSettings = JsonSerializerSettings;
             }
+
+            // Authentication Logic
+            if (Authenticator != null)
+            {
+                Authenticator.Authenticate(this, restRequest, HttpHandler);
+            }
+
 
             //RWM: We've moved this call to inside the HttpHandler setter... let's see if that solves our Mono problems.
             //ConfigureHandler(HttpHandler);

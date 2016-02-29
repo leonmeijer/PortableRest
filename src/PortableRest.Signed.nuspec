@@ -2,8 +2,8 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata minClientVersion="2.8.1">
         <id>LVMS.PortableRest.Signed</id>
-        <version>3.1.0-Beta1</version>
-        <title>PortableRest</title>
+        <version>3.1.1-Beta1</version>
+        <title>LVMS PortableRest</title>
         <authors>Robert McLaws, Richard Beauchamp</authors>
         <owners>AdvancedREI</owners>
         <licenseUrl>http://choosealicense.com/licenses/mit/</licenseUrl>

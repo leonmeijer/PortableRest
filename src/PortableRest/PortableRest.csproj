@@ -80,6 +80,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\BasicAuthenticator.cs" />
+    <Compile Include="Authentication\IAuthenticator.cs" />
     <Compile Include="ContentTypes.cs" />
     <Compile Include="EncodedParameter.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
