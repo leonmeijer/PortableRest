@@ -54,7 +54,7 @@ namespace PortableRest
         ///         Can be null.
         ///     </remarks>
         /// </summary>
-        IAuthenticator Authenticator { get; set; }
+        public IAuthenticator Authenticator { get; set; }
 
 
         /// <summary>
