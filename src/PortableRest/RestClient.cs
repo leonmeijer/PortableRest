@@ -377,17 +377,26 @@ namespace PortableRest
         /// <param name="restRequest"></param>
         /// <param name="httpResponseMessage"></param>
         /// <returns></returns>
-        private static async Task<T> GetResponseContent<T>(RestRequest restRequest, HttpResponseMessage httpResponseMessage) where T : class
+        private static async Task<T> GetResponseContent<T>(RestRequest restRequest,
+            HttpResponseMessage httpResponseMessage) where T : class
         {
-            var rawResponseContent = await GetRawResponseContent(httpResponseMessage).ConfigureAwait(false);
-            if (rawResponseContent == null) return null;
-            // ReSharper disable once CSharpWarnings::CS0618
-            if (typeof(T) == typeof(string) || restRequest.ReturnRawString)
+            if (typeof (T) == typeof (byte[]))
             {
-                return rawResponseContent as T;
+                var rawResponseBytes = await GetRawResponseContentBytes(httpResponseMessage);
+                return rawResponseBytes as T;
             }
+            else
+            {
+                var rawResponseContent = await GetRawResponseContent(httpResponseMessage).ConfigureAwait(false);
+                if (rawResponseContent == null) return null;
+                // ReSharper disable once CSharpWarnings::CS0618
+                if (typeof (T) == typeof (string) || restRequest.ReturnRawString)
+                {
+                    return rawResponseContent as T;
+                }
 
-            return DeserializeResponseContent<T>(restRequest, httpResponseMessage, rawResponseContent);
+                return DeserializeResponseContent<T>(restRequest, httpResponseMessage, rawResponseContent);
+            }
         }
 
         /// <summary>
@@ -401,6 +410,20 @@ namespace PortableRest
             if (response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.NoContent)
             {
                 return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="response"></param>
+        /// <returns></returns>
+        private static async Task<byte[]> GetRawResponseContentBytes(HttpResponseMessage response)
+        {
+            if (response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.NoContent)
+            {
+                return await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
             }
             return null;
         }

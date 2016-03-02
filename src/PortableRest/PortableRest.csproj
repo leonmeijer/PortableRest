@@ -83,6 +83,7 @@
     <None Include="..\PortableRest.snk">
       <Link>PortableRest.snk</Link>
     </None>
+    <None Include="abc.snk" />
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="package.nuspec" />
