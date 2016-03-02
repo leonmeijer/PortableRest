@@ -127,7 +127,8 @@ namespace PortableRest
         /// <param name="value">The value of the header being added.</param>
         public void AddHeader(string key, string value)
         {
-            Headers.Add(new KeyValuePair<string, string>(key, value));
+            if (!Headers.Any(h => h.Key.Equals(key, StringComparison.OrdinalIgnoreCase)))
+                Headers.Add(new KeyValuePair<string, string>(key, value));
         }
 
         /// <summary>

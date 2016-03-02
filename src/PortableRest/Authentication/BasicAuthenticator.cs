@@ -35,13 +35,13 @@ namespace PortableRest.Authentication
         /// <param name="handler">The http request handler.</param>
         public void Authenticate(RestClient client, RestRequest request, HttpMessageHandler handler)
         {
-            //if (!request.Headers.Any(h => h.Key.Equals(AuthorizationHeaderName, StringComparison.OrdinalIgnoreCase)))
-            //{
-            string token = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{_username}:{_password}"));
-            string authHeader = $"Basic {token}";
+            if (!request.Headers.Any(h => h.Key.Equals(AuthorizationHeaderName, StringComparison.OrdinalIgnoreCase)))
+            {
+                string token = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{_username}:{_password}"));
+                string authHeader = $"Basic {token}";
 
-            client.AddHeader(AuthorizationHeaderName, authHeader);
-            //}
+                client.AddHeader(AuthorizationHeaderName, authHeader);
+            }
         }
     }
 }
